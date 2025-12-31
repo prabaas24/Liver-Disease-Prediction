@@ -1,0 +1,16 @@
+# Core data & ML
+numpy
+pandas
+scikit-learn==1.6.1
+joblib
+
+# Visualization (used during analysis, safe for deployment too)
+matplotlib
+seaborn
+
+# API & deployment
+fastapi
+uvicorn
+
+# UI
+streamlit
