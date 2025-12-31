@@ -7,6 +7,14 @@ def load_model():
     return joblib.load("Liver_Prediction_SVM.pkl")
 
 model = load_model()
+label_map = {
+    0: "Cirrhosis",
+    1: "Fibrosis",
+    2: "Hepatitis",
+    3: "No Disease",
+    4: "Suspected Disease"
+}
+
 
 st.set_page_config(
     page_title="Liver Disease Prediction",
