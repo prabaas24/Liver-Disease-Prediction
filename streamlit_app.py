@@ -3,7 +3,11 @@ import numpy as np
 import joblib
 
 # Load model
-model = joblib.load("Liver_Prediction_SVM.pkl")
+def load_model():
+    return joblib.load("Liver_Prediction_SVM.pkl")
+
+model = load_model()
+
 st.set_page_config(
     page_title="Liver Disease Prediction",
     page_icon="🧪",
