@@ -5,6 +5,7 @@ import joblib
 # Load model
 def load_model():
     return joblib.load("Liver_Prediction_SVM.pkl")
+MODEL_ACCURACY = 0.94
 
 model = load_model()
 label_map = {
