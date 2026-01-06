@@ -91,10 +91,7 @@ if st.button("🔍 Predict Liver Condition", use_container_width=True):
 col2.metric("Weighted F1-score", f"{MODEL_F1_WEIGHTED:.2f}")
 col3.metric("Weighted Recall", f"{MODEL_RECALL_WEIGHTED:.2f}")
 
-    st.caption(
-    "Metrics evaluated on a held-out test dataset. "
-    "Weighted scores account for class imbalance."
-)
+    st.caption("Metrics evaluated on a held-out test dataset.")
 
 
 with st.expander("ℹ️ About this prediction"):
