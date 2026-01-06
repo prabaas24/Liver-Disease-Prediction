@@ -87,11 +87,14 @@ if st.button("🔍 Predict Liver Condition", use_container_width=True):
     st.markdown("### 📊 Model Performance")
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("Accuracy", "87%")
-    col2.metric("Precision", "85%")
-    col3.metric("Recall", "89%")
+    col1.metric("Accuracy", f"{MODEL_ACCURACY*100:.0f}%")
+col2.metric("Weighted F1-score", f"{MODEL_F1_WEIGHTED:.2f}")
+col3.metric("Weighted Recall", f"{MODEL_RECALL_WEIGHTED:.2f}")
 
-    st.caption("Metrics evaluated on held-out test dataset")
+    st.caption(
+    "Metrics evaluated on a held-out test dataset. "
+    "Weighted scores account for class imbalance."
+)
 
 
 with st.expander("ℹ️ About this prediction"):
