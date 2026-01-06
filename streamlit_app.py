@@ -77,11 +77,20 @@ if st.button("🔍 Predict Liver Condition", use_container_width=True):
     st.markdown("### 🧾 Prediction Result")
 
     if label == "No Disease":
-        st.success("✅ **No Liver Disease Detected**")
+        st.success("**No Liver Disease Detected**")
     elif label == "Suspected Disease":
-        st.warning("⚠️ **Suspected Liver Disease**")
+        st.warning("**Suspected Liver Disease**")
     else:
-        st.error(f"🚨 **{label} Detected**")
+        st.error(f"**{label} Detected**")
+        st.subheader("Model Performance")
+
+col1, col2, col3 = st.columns(3)
+col1.metric("Accuracy", "87%")
+col2.metric("Precision", "85%")
+col3.metric("Recall", "89%")
+
+st.caption("Metrics evaluated on test dataset")
+
 with st.expander("ℹ️ About this prediction"):
     st.write("""
     - This model is trained on clinical lab data.
@@ -97,12 +106,4 @@ with st.sidebar:
     st.write("- scikit-learn")
     st.write("- Streamlit Cloud")
 
-st.subheader("Model Performance")
-
-col1, col2, col3 = st.columns(3)
-col1.metric("Accuracy", "87%")
-col2.metric("Precision", "85%")
-col3.metric("Recall", "89%")
-
-st.caption("Metrics evaluated on test dataset")
 
