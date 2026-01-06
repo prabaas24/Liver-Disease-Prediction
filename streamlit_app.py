@@ -83,11 +83,12 @@ if st.button("🔍 Predict Liver Condition", use_container_width=True):
     else:
         st.error(f"**{label} Detected**")
 
-    st.markdown("### 📊 Model Performance (Test Dataset)")
+    st.markdown("### 📊 Model Accuracy")
 
-    col1 = st.columns(1)
-col1.metric("Accuracy", "94%")
-st.caption("Metrics evaluated on held-out test dataset")
+    acc_col = st.columns(1)[0]
+    acc_col.metric("Accuracy (Test Dataset)", f"{MODEL_ACCURACY*100:.0f}%")
+
+    st.caption("Accuracy evaluated on a held-out test dataset.")
 
 
 with st.expander("ℹ️ About this prediction"):
