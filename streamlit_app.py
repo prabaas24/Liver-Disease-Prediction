@@ -82,14 +82,17 @@ if st.button("🔍 Predict Liver Condition", use_container_width=True):
         st.warning("**Suspected Liver Disease**")
     else:
         st.error(f"**{label} Detected**")
-        st.subheader("Model Performance")
 
-col1, col2, col3 = st.columns(3)
-col1.metric("Accuracy", "87%")
-col2.metric("Precision", "85%")
-col3.metric("Recall", "89%")
+    # ✅ MODEL PERFORMANCE SECTION (CORRECT PLACE)
+    st.markdown("### 📊 Model Performance")
 
-st.caption("Metrics evaluated on test dataset")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Accuracy", "87%")
+    col2.metric("Precision", "85%")
+    col3.metric("Recall", "89%")
+
+    st.caption("Metrics evaluated on held-out test dataset")
+
 
 with st.expander("ℹ️ About this prediction"):
     st.write("""
