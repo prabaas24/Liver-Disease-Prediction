@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import joblib
-
+import pandas as pd
 # Load model
 def load_model():
     return joblib.load("Liver_Prediction_SVM.pkl")
