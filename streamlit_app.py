@@ -2,12 +2,14 @@ import streamlit as st
 import numpy as np
 import joblib
 import pandas as pd
+
 # Load model
 def load_model():
     return joblib.load("Liver_Prediction_SVM.pkl")
-MODEL_ACCURACY = 0.94
 
+MODEL_ACCURACY = 0.94
 model = load_model()
+
 label_map = {
     0: "Cirrhosis",
     1: "Fibrosis",
@@ -16,7 +18,6 @@ label_map = {
     4: "Suspected Disease"
 }
 
-
 st.set_page_config(
     page_title="Liver Disease Prediction",
     page_icon="🧪",
@@ -24,13 +25,12 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-
 st.markdown("## 🧬 Patient Information")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    age = st.number_input("Age (years)", min_value=1, max_value=100, value=45)
+    age = st.number_input("Age (years)", 1, 100, 45)
     cholinesterase = st.number_input("Cholinesterase (kU/L)", value=7.0)
     cholesterol = st.number_input("Cholesterol (mmol/L)", value=4.5)
     protein = st.number_input("Total Protein (g/L)", value=65.0)
@@ -72,11 +72,13 @@ if st.button("🔍 Predict Liver Condition", use_container_width=True):
         np.log(ggt)
     ]).reshape(1, -1)
 
+    # Predictions
     prediction = model.predict(features)[0]
     probabilities = model.predict_proba(features)[0]
 
     label = label_map[prediction]
     confidence = np.max(probabilities) * 100
+
     st.markdown("### 🧾 Prediction Result")
 
     if label == "No Disease":
@@ -86,21 +88,31 @@ if st.button("🔍 Predict Liver Condition", use_container_width=True):
     else:
         st.error(f"**{label} Detected**")
 
+    # ✅ CONFIDENCE
+    st.info(f"🔎 Prediction Confidence: **{confidence:.2f}%**")
+
+    # ✅ CLASS-WISE PROBABILITIES
+    prob_df = pd.DataFrame({
+        "Disease Category": label_map.values(),
+        "Probability (%)": (probabilities * 100).round(2)
+    }).sort_values(by="Probability (%)", ascending=False)
+
+    with st.expander("📊 View class-wise probabilities"):
+        st.dataframe(prob_df, use_container_width=True)
+
+    # ✅ ACCURACY
     st.markdown("### 📊 Model Accuracy")
-
-    acc_col = st.columns(1)[0]
-    acc_col.metric("Accuracy (Test Dataset)", f"{MODEL_ACCURACY*100:.0f}%")
-
+    st.metric("Accuracy (Test Dataset)", f"{MODEL_ACCURACY*100:.0f}%")
     st.caption("Accuracy evaluated on a held-out test dataset.")
-
 
 with st.expander("ℹ️ About this prediction"):
     st.write("""
     - This model is trained on clinical lab data.
     - It predicts **multiple liver disease categories**.
+    - Confidence represents model-estimated probability.
     - Results are **not a medical diagnosis**.
-    - Always consult a qualified healthcare professional.
     """)
+
 with st.sidebar:
     st.markdown("## 🧪 Liver AI")
     st.write("Multi-class liver disease prediction")
@@ -108,5 +120,3 @@ with st.sidebar:
     st.write("Built with:")
     st.write("- scikit-learn")
     st.write("- Streamlit Cloud")
-
-
