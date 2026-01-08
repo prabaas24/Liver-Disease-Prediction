@@ -73,10 +73,10 @@ if st.button("🔍 Predict Liver Condition", use_container_width=True):
     ]).reshape(1, -1)
 
     prediction = model.predict(features)[0]
-        probabilities = model.predict_proba(features)[0]
+    probabilities = model.predict_proba(features)[0]
 
     label = label_map[prediction]
-confidence = np.max(probabilities) * 100
+    confidence = np.max(probabilities) * 100
     st.markdown("### 🧾 Prediction Result")
 
     if label == "No Disease":
