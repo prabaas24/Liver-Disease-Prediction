@@ -3,6 +3,7 @@ numpy
 pandas
 scikit-learn==1.6.1
 joblib
+altair==4.2.2
 
 # Visualization (used during analysis, safe for deployment too)
 matplotlib
