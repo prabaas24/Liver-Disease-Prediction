@@ -14,4 +14,4 @@ fastapi
 uvicorn
 
 # UI
-streamlit
+streamlit>=1.35.0
